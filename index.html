@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-Обійми: Слова, що живуть вічно</title>
+    <meta name="description" content="Один дотик до QR — і сльози щастя, мурашки по шкірі, обійми, які тривають вічно.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0a0a;
+            --text-light: #f5f5f5;
+            --accent-gold: #d4af37;
+            --accent-pink: #ff69b4;
+            --card-bg: rgba(30, 20, 20, 0.85);
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a0f0f 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-gold);
+            text-shadow: 0 0 15px rgba(212,175,55,0.6);
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .hero {
+            height: 90vh;
+            background: url('hero.jpg') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 5, 5, 0.75);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+        .premium-btn {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-pink));
+            color: white;
+            padding: 16px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 0 30px rgba(212,175,55,0.5);
+        }
+        .premium-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 50px rgba(255,105,180,0.7);
+        }
+        .section {
+            padding: 90px 0;
+        }
+        .section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(212,175,55,0.5);
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+        }
+        .reactions, .stories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+        .reaction, .story {
+            width: 280px;
+            text-align: center;
+        }
+        .reaction img, .story img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 4px solid var(--accent-gold);
+        }
+        .story p {
+            font-style: italic;
+            margin: 10px 0;
+            font-size: 1.05rem;
+        }
+        .story-author {
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+        .steps {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        .step {
+            min-width: 220px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .step-number {
+            font-size: 2.8em;
+            color: var(--accent-gold);
+        }
+        table {
+            width: 100%;
+            background: var(--card-bg);
+            border-collapse: collapse;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+        }
+        th {
+            background: rgba(212,175,55,0.15);
+            color: var(--accent-gold);
+        }
+        form {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        input, textarea, select {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: white;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+        input::placeholder, textarea::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        footer {
+            background: var(--dark);
+            color: var(--text-light);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .audio-container {
+            background: rgba(30,20,20,0.8);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 30px 0;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #volume-meter {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            height: 70px;
+            align-items: flex-end;
+            margin: 15px 0;
+        }
+        .bar {
+            width: 8px;
+            background: var(--accent-gold);
+            border-radius: 4px;
+            transition: height 0.08s ease;
+        }
+        .bar.medium { background: linear-gradient(to top, #FFD93D, #e6c229); }
+        .bar.high { background: linear-gradient(to top, #FF6B6B, #e55a5a); }
+        .scroll-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-pink);
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(255,105,180,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .scroll-btn:hover { transform: translateY(-5px); }
+        #scrollTop { display: none; }
+        #scrollBottom { bottom: 100px; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .steps { flex-wrap: wrap; }
+            .step { min-width: 45%; }
+            .reaction, .story { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Головний екран -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Скажи те, що не встиг…</h1>
+            <p>Один дотик до QR — і сльози щастя, мурашки по всьому тілу, обійми, які тривають вічно.</p>
+            <button class="premium-btn" onclick="document.getElementById('order').scrollIntoView({behavior: 'smooth'})">Створити подарунок</button>
+        </div>
+    </section>
+
+    <!-- Реакції -->
+    <section class="section" id="emotions">
+        <div class="container">
+            <h2>Коли слова стають сльозами радості…</h2>
+            <div class="reactions">
+                <div class="reaction">
+                    <img src="reaction1.jpg" alt="Мама плаче від щастя">
+                    <p>Мама чує голос сина, який далеко… і плаче, бо відчуває, ніби він обіймає її прямо зараз.</p>
+                </div>
+                <div class="reaction">
+                    <img src="reaction2.jpg" alt="Дівчина розплакалася від кохання">
+                    <p>Вона скачує QR на день народження… і не стримує сліз — ти сказав саме те, що вона чекала все життя.</p>
+                </div>
+                <div class="reaction">
+                    <img src="reaction3.jpg" alt="Бабуся радіє голосу онука">
+                    <p>Бабуся кожного разу, коли сумує, сканує QR… і чує онука, ніби він поруч. Сльози тепла щодня.</p>
+                </div>
+                <div class="reaction">
+                    <img src="https://media.gettyimages.com/id/1370133190/photo/beautiful-woman-in-her-30s-covers-her-face-and-cries-as-she-talks-on-her-cellphone-in-a-city.jpg?s=612x612&w=gi&k=20&c=1D5jRepyI3aQHfMWbocJl-PGPRXIpy23R6FFsLGLLlU=" alt="Жінка плаче від щастя">
+                    <p>Вона чує слова любові через QR — і плаче від щастя, бо відчула серце поруч.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Історії клієнтів -->
+    <section class="section">
+        <div class="container">
+            <h2>Історії, від яких щемить серце</h2>
+            <div class="stories">
+                <div class="story">
+                    <img src="https://media.gettyimages.com/id/1370133190/photo/beautiful-woman-in-her-30s-covers-her-face-and-cries-as-she-talks-on-her-cellphone-in-a-city.jpg?s=612x612&w=gi&k=20&c=1D5jRepyI3aQHfMWbocJl-PGPRXIpy23R6FFsLGLLlU=" alt="Анна">
+                    <p>Син надіслав мамі QR з голосом: «Мамо, я люблю тебе». Вона плакала так, ніби я повернувся додому після 5 років…</p>
+                    <p class="story-author">— Анна, Київ</p>
+                </div>
+                <div class="story">
+                    <img src="https://media.gettyimages.com/id/2063966907/photo/sad-woman-phone-and-crying-with-bad-news-anxiety-or-stress-in-mental-health-or-burnout-at.jpg?s=612x612&w=gi&k=20&c=IX1R4u-kzHKbDZKlpfg_J1PTvY7NZ8kSnrA4OfE5f3M=" alt="Сергій">
+                    <p>Дівчина відкрила QR на річницю і сказала: «Я чекала цих слів все життя».</p>
+                    <p class="story-author">— Сергій, Львів</p>
+                </div>
+                <div class="story">
+                    <img src="https://thumbs.dreamstime.com/b/senior-elderly-couple-grandfather-grandmother-looking-mobile-phone-making-online-shopping-reading-book-mature-old-husband-213586560.jpg" alt="Олексій">
+                    <p>Бабуся кожного ранку сканує QR від онука і каже: «Тепер не так самотньо».</p>
+                    <p class="story-author">— Олексій, Одеса</p>
+                </div>
+                <div class="story">
+                    <img src="https://www.shutterstock.com/image-photo/young-woman-sitting-home-holding-260nw-2614256417.jpg" alt="Марина">
+                    <p>Дружина відкрила QR від чоловіка: «Ти — моє життя». Плакала від щастя.</p>
+                    <p class="story-author">— Марина, Харків</p>
+                </div>
+                <div class="story">
+                    <img src="https://belux-edmo.s3-accelerate.amazonaws.com/wp-content/uploads/2025/12/PHOTO-1-copy.jpg" alt="Ірина">
+                    <p>Випускнику надіслали QR: «Ти впораєшся». Хлопець плакав — це найцінніше.</p>
+                    <p class="story-author">— Ірина, вчителька</p>
+                </div>
+                <div class="story">
+                    <img src="https://static01.nyt.com/images/2024/03/06/multimedia/06CRYING-IN-FOOTBALL-01-ztjc/06CRYING-IN-FOOTBALL-01-ztjc-videoSixteenByNine3000.jpg" alt="Володимир">
+                    <p>Тато надіслав QR сину: «Я пишаюся тобою». Син сказав: «Я теж тебе люблю».</p>
+                    <p class="story-author">— Володимир, Дніпро</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кроки в одну строчку -->
+    <section class="section">
+        <div class="container">
+            <h2>Всього 4 кроки до вічності</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <p>Запиши те, що в серці</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <p>Оплати та завантаж</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <p>Ми створюємо секретний QR</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <p>Отримай і подаруй сльози щастя</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Обери подарунок -->
+    <section class="section">
+        <div class="container">
+            <h2>Обери той подарунок, що розтопить серце</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Подарунок</th>
+                        <th>Ціна</th>
+                        <th>Що отримаєш</th>
+                        <th>Коли це особливо боляче</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Листівка преміум</td>
+                        <td>890 грн</td>
+                        <td>Теплий картон, конверт, ніжний дизайн</td>
+                        <td>День народження мами, тата, коханої</td>
+                    </tr>
+                    <tr>
+                        <td>Мінімалістична картка</td>
+                        <td>690 грн</td>
+                        <td>Елегантна візитка, чорно-біла краса</td>
+                        <td>Колегам, друзям, які цінують простоту</td>
+                    </tr>
+                    <tr>
+                        <td>Наклейка (додатково)</td>
+                        <td>+150 грн</td>
+                        <td>Приклеїш на букет, коробку чи лист</td>
+                        <td>Коли хочеш додати сюрприз до будь-якого подарунка</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Форма замовлення -->
+    <section class="section" id="order">
+        <div class="container">
+            <h2>Створи свій вічний подарунок</h2>
+            <div class="form-container">
+                <form id="orderForm" action="https://formspree.io/f/your_endpoint" method="POST" enctype="multipart/form-data">
+                    <input type="text" name="name" placeholder="Твоє ім'я" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="tel" name="phone" placeholder="Телефон" required>
+
+                    <select name="greetingType" id="greetingTheme" style="width: 100%; padding: 15px; margin: 15px 0; border-radius: 10px; font-size: 1.1em; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(212,175,55,0.3);">
+                        <option value="">Обери тип привітання...</option>
+                        <option value="День народження">День народження</option>
+                        <option value="Подяка">Подяка</option>
+                        <option value="Освідчення в коханні">Освідчення в коханні</option>
+                        <option value="День матері / батька">День матері / батька</option>
+                        <option value="Ювілей / річниця">Ювілей / річниця</option>
+                        <option value="Прощання / вибачення">Прощання / вибачення</option>
+                        <option value="Інше (впиши нижче)">Інше (впиши нижче)</option>
+                    </select>
+
+                    <input type="text" name="customType" id="customTheme" placeholder="Впиши свій варіант..." style="display: none; width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(212,175,55,0.3);">
+
+                    <textarea name="textGreeting" placeholder="Напиши текст привітання (якщо хочеш додати до голосу/відео)" rows="5"></textarea>
+
+                    <div class="audio-container">
+                        <h3>Запиши голосове привітання</h3>
+                        <div class="audio-buttons">
+                            <button type="button" id="startRecordBtn" class="premium-btn">🎤 Почати</button>
+                            <button type="button" id="stopRecordBtn" class="premium-btn" style="display:none">■ Зупинити</button>
+                            <div id="recordingStatus">Натисни, щоб почати...</div>
+                            <div id="timer">00:00</div>
+                        </div>
+
+                        <div id="volume-meter">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+
+                        <audio id="audioPreview" controls></audio>
+                    </div>
+
+                    <input type="file" name="audioFile" id="audioFileInput" accept="audio/*" style="display:none;">
+
+                    <p>Або завантаж готовий файл:</p>
+                    <input type="file" name="media" accept="audio/*,video/*">
+
+                    <button type="submit" class="premium-btn">Оплатити та створити</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <h3>Сльози щастя, які не купиш за гроші</h3>
+            <p>Понад 500+ сердець вже розтоплено. Тепер твоя черга подарувати щось вічне.</p>
+            <p>З любов’ю: @qrobjatie в Telegram | Політика конфіденційності | 2026</p>
+        </div>
+    </footer>
+
+    <!-- Кнопки прокрутки -->
+    <button class="scroll-btn premium-btn" id="scrollTop" style="position:fixed; bottom:30px; right:30px; display:none; padding:15px 20px; border-radius:50%; z-index:1000;">↑</button>
+    <button class="scroll-btn premium-btn" id="scrollBottom" style="position:fixed; bottom:100px; right:30px; padding:15px 20px; border-radius:50%; z-index:1000;">↓</button>
+
+    <!-- Скрипт -->
+    <script>
+        // Показ поля для власної теми
+        document.getElementById('greetingTheme').addEventListener('change', function() {
+            document.getElementById('customTheme').style.display = (this.value === 'Інше (впиши нижче)') ? 'block' : 'none';
+        });
+
+        // Прокрутка
+        const scrollTopBtn = document.getElementById('scrollTop');
+        const scrollBottomBtn = document.getElementById('scrollBottom');
+
+        window.onscroll = () => {
+            scrollTopBtn.style.display = (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) ? 'block' : 'none';
+        };
+
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+        scrollBottomBtn.addEventListener('click', () => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}));
+
+        // Скрипт аудіо-запису (встав сюди свій попередній робочий скрипт з функціями startBtn, stopBtn, visualize тощо)
+        // Якщо потрібно — скажи, і я надішлю повний скрипт аудіо окремо
+    </script>
+</body>
+</html>
